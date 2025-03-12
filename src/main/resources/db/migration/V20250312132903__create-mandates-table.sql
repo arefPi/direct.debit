@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS mandates (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    reference_id VARCHAR(255) NOT NULL,
     status VARCHAR(50) NOT NULL,
     max_daily_transfer_amount DECIMAL(10, 2) NOT NULL,
     max_daily_transaction_count INTEGER NOT NULL,
