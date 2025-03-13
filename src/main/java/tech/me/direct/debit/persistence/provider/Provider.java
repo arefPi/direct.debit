@@ -13,7 +13,8 @@ public class Provider extends tech.me.direct.debit.persistence.Entity {
     private String providerName;
 
     @Column(name = "provider_id", nullable = false, unique = true)
-    private String providerId;
+    @Enumerated(EnumType.STRING)
+    private ProviderId providerId;
 
     @Column(name = "redirect_url", nullable = false)
     private String redirectUrl;
