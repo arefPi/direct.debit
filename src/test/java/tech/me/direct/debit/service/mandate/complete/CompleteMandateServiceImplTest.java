@@ -6,15 +6,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import tech.me.direct.debit.config.MandateConfig;
+import tech.me.direct.debit.config.properties.MandateProperties;
 import tech.me.direct.debit.persistence.mandate.Mandate;
 import tech.me.direct.debit.persistence.mandate.MandateRepository;
 import tech.me.direct.debit.persistence.mandate.MandateStatus;
 import tech.me.direct.debit.persistence.provider.Provider;
 import tech.me.direct.debit.persistence.provider.ProviderRepository;
-import tech.me.direct.debit.service.mandate.complete.exception.MandateNotFoundException;
-import tech.me.direct.debit.service.mandate.complete.exception.ProviderNotFoundException;
 import tech.me.direct.debit.service.mandate.complete.mapper.CompleteMandateMapper;
+import tech.me.direct.debit.service.mandate.exception.MandateNotFoundException;
+import tech.me.direct.debit.service.mandate.exception.ProviderNotFoundException;
 
 import java.util.Optional;
 
@@ -33,7 +33,7 @@ class CompleteMandateServiceImplTest {
     private ProviderRepository providerRepository;
 
     @Mock
-    private MandateConfig mandateConfig;
+    private MandateProperties mandateProperties;
 
     @Mock
     private CompleteMandateMapper completeMandateMapper;
@@ -63,7 +63,7 @@ class CompleteMandateServiceImplTest {
         // Arrange
         when(mandateRepository.findByReferenceId(request.mandateReferenceId())).thenReturn(Optional.of(mandate));
         when(providerRepository.findById(request.providerId())).thenReturn(Optional.of(provider));
-        when(mandateConfig.getDefaultExpiryDays()).thenReturn(30);
+        when(mandateProperties.getDefaultExpiryDays()).thenReturn(30);
 
         // Act
         completeMandateService.completeMandate(request);

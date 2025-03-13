@@ -1,14 +1,14 @@
-package tech.me.direct.debit.config;
+package tech.me.direct.debit.config.properties;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
 @ConfigurationProperties(prefix = "mandate")
+@Configuration
 @Getter
 @Setter
-public class MandateConfig {
+public class MandateProperties {
     private Integer defaultExpiryDays = 365;
-} 
+}
