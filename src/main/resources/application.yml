@@ -23,3 +23,7 @@ spring:
 
 mandate:
   default-expiry-days: ${MANDATE_DEFAULT_EXPIRY_DAYS:365}
+  authorization-code:
+              state:
+                secret: ${MANDATE_STATE_SECRET:v7Vt0gKX+Y4c9Wm1wP2hZ5aVJb3x8lH6T2qjE9uCsWQ=}
+}
