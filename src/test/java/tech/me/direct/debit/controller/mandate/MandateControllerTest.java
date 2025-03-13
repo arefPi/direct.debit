@@ -10,6 +10,9 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import tech.me.direct.debit.controller.mandate.create.CreateMandateResponseMapper;
 import tech.me.direct.debit.service.mandate.create.CreateMandateService;
 import tech.me.direct.debit.service.mandate.create.model.CreateMandateRequest;
+import tech.me.direct.debit.controller.mandate.complete.CompleteMandateRequest;
+import tech.me.direct.debit.controller.mandate.complete.CompleteMandateRequestMapper;
+import tech.me.direct.debit.service.mandate.complete.CompleteMandateService;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -25,13 +28,24 @@ class MandateControllerTest {
     private CreateMandateResponseMapper createMandateResponseMapper;
 
     @Mock
+    private CompleteMandateService completeMandateService;
+
+    @Mock
+    private CompleteMandateRequestMapper completeMandateRequestMapper;
+
+    @Mock
     private Jwt userJwt;
 
     private MandateController mandateController;
 
     @BeforeEach
     void setUp() {
-        mandateController = new MandateController(createMandateService, createMandateResponseMapper);
+        mandateController = new MandateController(
+            createMandateService,
+            createMandateResponseMapper,
+            completeMandateService,
+            completeMandateRequestMapper
+        );
     }
 
     @Test
@@ -59,4 +73,32 @@ class MandateControllerTest {
         verify(createMandateResponseMapper).map(serviceResponse);
     }
 
+    @Test
+    void completeMandate_Success() {
+        // Given
+        var requestDto = new CompleteMandateRequest(
+            "mandate-ref-123",
+            1,
+            1000.0f,
+            10,
+            100.0f
+        );
+        var serviceRequest = new tech.me.direct.debit.service.mandate.complete.CompleteMandateRequest(
+            "mandate-ref-123",
+            1,
+            1000.0f,
+            10,
+            100.0f
+        );
+        when(completeMandateRequestMapper.map(requestDto)).thenReturn(serviceRequest);
+
+        // When
+        var response = mandateController.completeMandate(requestDto);
+
+        // Then
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNull(response.getBody());
+        verify(completeMandateService).completeMandate(serviceRequest);
+        verify(completeMandateRequestMapper).map(requestDto);
+    }
 }
