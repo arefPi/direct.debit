@@ -1,4 +1,4 @@
-package tech.me.direct.debit.service.mandate.complete.exception;
+package tech.me.direct.debit.service.mandate.exception;
 
 import lombok.Getter;
 
