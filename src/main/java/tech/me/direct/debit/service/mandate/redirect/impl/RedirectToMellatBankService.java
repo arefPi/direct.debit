@@ -3,6 +3,7 @@ package tech.me.direct.debit.service.mandate.redirect.impl;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import tech.me.direct.debit.config.properties.MandateCallbackProperties;
 import tech.me.direct.debit.persistence.mandate.Mandate;
 import tech.me.direct.debit.persistence.mandate.MandateRepository;
 import tech.me.direct.debit.persistence.mandate.MandateStatus;
@@ -23,6 +24,7 @@ public class RedirectToMellatBankService implements RedirectToProviderService {
     private final MandateRepository mandateRepository;
     private final AESStateEncryptionService aesStateEncryptionService;
     private final SubmitMandateToMellatBankService submitMandateToMellatBankService;
+    private final MandateCallbackProperties mandateCallbackProperties;
 
     @Override
     public RedirectToProviderResponse redirect(RedirectToProviderRequest request) {
@@ -68,19 +70,20 @@ public class RedirectToMellatBankService implements RedirectToProviderService {
         final var encryptedState = aesStateEncryptionService.encrypt(state);
 
         final var provider = mandate.getProvider();
-        final var redirectUrl = provider.getRedirectUrl();
+        final var providerAddress = provider.getRedirectUrl();
         final var clientId = provider.getClientId();
+        final var redirectUri = mandateCallbackProperties.getUrl();
 
-        final var redirectUri = MandateAuthorizationCodeRequestUriBuilder.builder()
-                .providerAddress(redirectUrl)
+        final var url = MandateAuthorizationCodeRequestUriBuilder.builder()
+                .providerAddress(providerAddress)
                 .clientId(clientId)
-                .redirectUri(redirectUrl)
+                .redirectUri(redirectUri)
                 .state(encryptedState)
                 .mandateReferenceId(referenceId)
                 .build()
                 .toUriString();
 
-        return new RedirectToProviderResponse(redirectUri);
+        return new RedirectToProviderResponse(url);
     }
 
     @Override

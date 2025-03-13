@@ -7,6 +7,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import tech.me.direct.debit.config.properties.MandateCallbackProperties;
 import tech.me.direct.debit.persistence.mandate.Mandate;
 import tech.me.direct.debit.persistence.mandate.MandateRepository;
 import tech.me.direct.debit.persistence.mandate.MandateStatus;
@@ -44,6 +46,9 @@ class RedirectToMellatBankServiceTest {
     @Mock
     private SubmitMandateToMellatBankService submitMandateToMellatBankService;
 
+    @Mock
+    private MandateCallbackProperties mandateCallbackProperties;
+
     private RedirectToMellatBankService redirectToMellatBankService;
 
     private final User user = createUser();
@@ -51,12 +56,13 @@ class RedirectToMellatBankServiceTest {
     private final Mandate mandate = createMandate();
     private final RedirectToProviderRequest request = new RedirectToProviderRequest(MANDATE_REFERENCE_ID);
 
-    @BeforeEach
+    @BeforeEach 
     void setUp() {
         redirectToMellatBankService = new RedirectToMellatBankService(
                 mandateRepository,
                 aesStateEncryptionService,
-                submitMandateToMellatBankService
+                submitMandateToMellatBankService,
+                mandateCallbackProperties
         );
     }
 
@@ -94,7 +100,9 @@ class RedirectToMellatBankServiceTest {
     @Test
     void shouldSuccessfullyRedirectToProvider() {
         // Given
-        final var expectedRedirectUri = "https://test-redirect-url.com?response_type=code&redirect_uri=https://test-redirect-url.com&client_id=test-client-id&scope=mandate&state=encrypted-state-value&mandate_reference_id=test-reference-id";
+        final var callbackUrl = "https://callback.test.com";
+        when(mandateCallbackProperties.getUrl()).thenReturn(callbackUrl);
+        final var expectedRedirectUri = "https://test-redirect-url.com?response_type=code&redirect_uri=" + callbackUrl + "&client_id=test-client-id&scope=mandate&state=encrypted-state-value&mandate_reference_id=test-reference-id";
         when(mandateRepository.findByReferenceId(MANDATE_REFERENCE_ID)).thenReturn(Optional.of(mandate));
         when(aesStateEncryptionService.encrypt(any())).thenReturn(ENCRYPTED_STATE);
         
