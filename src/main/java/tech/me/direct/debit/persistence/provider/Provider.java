@@ -1,9 +1,13 @@
 package tech.me.direct.debit.persistence.provider;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "providers")
+@Getter
+@Setter
 public class Provider extends tech.me.direct.debit.persistence.Entity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
