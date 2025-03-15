@@ -5,6 +5,7 @@ public enum MandateStatus {
     DRAFT,
     SENT,
     WAITING_FOR_VERIFICATION,
+    ACTIVE,
     CANCELLED,
     FAILED,
     EXPIRED,
