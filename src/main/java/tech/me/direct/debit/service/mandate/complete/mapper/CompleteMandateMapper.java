@@ -10,7 +10,7 @@ import tech.me.direct.debit.service.mandate.complete.CompleteMandateRequest;
 
 import java.time.LocalDateTime;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface CompleteMandateMapper {
 
     @Mapping(target = "provider", source = "provider")
