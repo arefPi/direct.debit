@@ -1,4 +1,4 @@
-package tech.me.direct.debit.service.mandate.get.access.token;
+package tech.me.direct.debit.service.mandate.get.access.token.model;
 
 public record GetProviderAccessTokenRequest(
     String code,
