@@ -1,4 +1,4 @@
-package tech.me.direct.debit.service.mandate.redirect.uri.builder;
+package tech.me.direct.debit.service.provider.mandate.impl.mellat.redirect.url.builder;
 
 import lombok.Builder;
 import org.springframework.web.util.UriComponentsBuilder;
