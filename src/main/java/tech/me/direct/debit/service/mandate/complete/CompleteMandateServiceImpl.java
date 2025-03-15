@@ -2,6 +2,7 @@ package tech.me.direct.debit.service.mandate.complete;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tech.me.direct.debit.config.properties.MandateProperties;
 import tech.me.direct.debit.persistence.mandate.MandateRepository;
 import tech.me.direct.debit.persistence.mandate.MandateStatus;
@@ -12,6 +13,7 @@ import tech.me.direct.debit.service.mandate.exception.MandateNotInExpectedStatus
 import tech.me.direct.debit.service.mandate.exception.ProviderNotFoundException;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CompleteMandateServiceImpl implements CompleteMandateService {
     private final MandateRepository mandateRepository;

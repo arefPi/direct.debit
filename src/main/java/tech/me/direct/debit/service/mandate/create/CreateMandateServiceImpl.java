@@ -1,9 +1,8 @@
 package tech.me.direct.debit.service.mandate.create;
 
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import tech.me.direct.debit.persistence.mandate.Mandate;
 import tech.me.direct.debit.persistence.mandate.MandateRepository;
 import tech.me.direct.debit.persistence.mandate.MandateStatus;
@@ -15,6 +14,7 @@ import tech.me.direct.debit.service.mandate.create.model.CreateMandateResponse;
 import tech.me.direct.debit.service.mandate.create.reference.provider.MandateReferenceIdProvider;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CreateMandateServiceImpl implements CreateMandateService {
     private final UserRepository userRepository;

@@ -2,6 +2,7 @@ package tech.me.direct.debit.service.mandate.callback.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tech.me.direct.debit.persistence.mandate.Mandate;
 import tech.me.direct.debit.persistence.mandate.MandateRepository;
 import tech.me.direct.debit.persistence.mandate.MandateStatus;
@@ -18,6 +19,7 @@ import tech.me.direct.debit.service.mandate.get.access.token.GetProviderAccessTo
 import tech.me.direct.debit.persistence.mandate.Token;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class MandateCallbackServiceImpl implements MandateCallbackService {
     private final MandateRepository mandateRepository;
