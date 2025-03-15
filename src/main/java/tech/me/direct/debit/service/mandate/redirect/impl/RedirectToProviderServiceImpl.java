@@ -1,6 +1,7 @@
 package tech.me.direct.debit.service.mandate.redirect.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import tech.me.direct.debit.persistence.mandate.Mandate;
 import tech.me.direct.debit.persistence.mandate.MandateRepository;
 import tech.me.direct.debit.persistence.mandate.MandateStatus;
@@ -17,6 +18,7 @@ import tech.me.direct.debit.service.provider.mandate.impl.model.redirect.Redirec
 import tech.me.direct.debit.util.ObjectResolver;
 
 @RequiredArgsConstructor
+@Service
 public class RedirectToProviderServiceImpl implements RedirectToProviderService {
     private final MandateRepository mandateRepository;
     private final ObjectResolver<ProviderId, ProviderRedirectService> providerRedirectServiceResolver;
