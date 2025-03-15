@@ -8,6 +8,7 @@ import tech.me.direct.debit.persistence.mandate.MandateStatus;
 import tech.me.direct.debit.persistence.provider.ProviderRepository;
 import tech.me.direct.debit.service.mandate.complete.mapper.CompleteMandateMapper;
 import tech.me.direct.debit.service.mandate.exception.MandateNotFoundException;
+import tech.me.direct.debit.service.mandate.exception.MandateNotInExpectedStatusException;
 import tech.me.direct.debit.service.mandate.exception.ProviderNotFoundException;
 
 @Service
@@ -20,8 +21,13 @@ public class CompleteMandateServiceImpl implements CompleteMandateService {
 
     @Override
     public void completeMandate(CompleteMandateRequest request) {
-        final var mandate = mandateRepository.findByReferenceId(request.mandateReferenceId())
-                .orElseThrow(() -> new MandateNotFoundException(request.mandateReferenceId()));
+        final var mandateReferenceId = request.mandateReferenceId();
+        final var mandate = mandateRepository.findByReferenceId(mandateReferenceId)
+                .orElseThrow(() -> new MandateNotFoundException(mandateReferenceId));
+
+        if (MandateStatus.INITIAL != mandate.getStatus()) {
+            throw new MandateNotInExpectedStatusException(mandateReferenceId, mandate.getStatus().name());
+        }
 
         final var provider = providerRepository.findById(request.providerId())
                 .orElseThrow(() -> new ProviderNotFoundException(request.providerId()));

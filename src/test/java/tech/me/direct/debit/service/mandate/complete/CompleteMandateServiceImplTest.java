@@ -15,6 +15,7 @@ import tech.me.direct.debit.persistence.provider.ProviderRepository;
 import tech.me.direct.debit.service.mandate.complete.mapper.CompleteMandateMapper;
 import tech.me.direct.debit.service.mandate.exception.MandateNotFoundException;
 import tech.me.direct.debit.service.mandate.exception.ProviderNotFoundException;
+import tech.me.direct.debit.service.mandate.exception.MandateNotInExpectedStatusException;
 
 import java.util.Optional;
 
@@ -55,6 +56,7 @@ class CompleteMandateServiceImplTest {
                 100.0f
         );
         mandate = new Mandate();
+        mandate.setStatus(MandateStatus.INITIAL);
         provider = new Provider();
     }
 
@@ -88,6 +90,22 @@ class CompleteMandateServiceImplTest {
         assertThrows(MandateNotFoundException.class,
                 () -> completeMandateService.completeMandate(request),
                 "Should throw MandateNotFoundException when mandate not found");
+
+        verify(providerRepository, never()).findById(any());
+        verify(completeMandateMapper, never()).updateMandate(any(), any(), any(), any(), any());
+        verify(mandateRepository, never()).save(any());
+    }
+
+    @Test
+    void completeMandate_WhenMandateNotInInitialStatus_ShouldThrowException() {
+        // Arrange
+        mandate.setStatus(MandateStatus.DRAFT);
+        when(mandateRepository.findByReferenceId(request.mandateReferenceId())).thenReturn(Optional.of(mandate));
+
+        // Act & Assert
+        assertThrows(MandateNotInExpectedStatusException.class,
+                () -> completeMandateService.completeMandate(request),
+                "Should throw MandateNotInExpectedStatusException when mandate not in INITIAL status");
 
         verify(providerRepository, never()).findById(any());
         verify(completeMandateMapper, never()).updateMandate(any(), any(), any(), any(), any());

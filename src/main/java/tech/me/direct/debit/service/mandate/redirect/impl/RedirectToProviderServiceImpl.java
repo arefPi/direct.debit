@@ -53,7 +53,7 @@ public class RedirectToProviderServiceImpl implements RedirectToProviderService 
         if (!MandateStatus.DRAFT.equals(mandate.getStatus())) {
             final var status = mandate.getStatus()
                     != null ? mandate.getStatus().name() : null;
-            throw new MandateNotInExpectedStatusException(status);
+            throw new MandateNotInExpectedStatusException(mandate.getReferenceId(), status);
         }
     }
 
