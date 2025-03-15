@@ -13,6 +13,8 @@ import tech.me.direct.debit.service.mandate.create.model.CreateMandateRequest;
 import tech.me.direct.debit.controller.mandate.complete.CompleteMandateRequest;
 import tech.me.direct.debit.controller.mandate.complete.CompleteMandateRequestMapper;
 import tech.me.direct.debit.service.mandate.complete.CompleteMandateService;
+import tech.me.direct.debit.service.mandate.redirect.RedirectToProviderService;
+import tech.me.direct.debit.service.mandate.callback.MandateCallbackService;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -34,6 +36,12 @@ class MandateControllerTest {
     private CompleteMandateRequestMapper completeMandateRequestMapper;
 
     @Mock
+    private RedirectToProviderService redirectToProviderService;
+
+    @Mock
+    private MandateCallbackService mandateCallbackService;
+
+    @Mock
     private Jwt userJwt;
 
     private MandateController mandateController;
@@ -44,7 +52,9 @@ class MandateControllerTest {
             createMandateService,
             createMandateResponseMapper,
             completeMandateService,
-            completeMandateRequestMapper
+            completeMandateRequestMapper,
+            redirectToProviderService,
+            mandateCallbackService
         );
     }
 
