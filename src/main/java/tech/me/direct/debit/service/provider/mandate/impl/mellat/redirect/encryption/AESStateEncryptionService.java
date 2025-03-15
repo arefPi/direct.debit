@@ -1,10 +1,9 @@
-package tech.me.direct.debit.service.mandate.redirect.encryption;
+package tech.me.direct.debit.service.provider.mandate.impl.mellat.redirect.encryption;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.me.direct.debit.config.properties.MandateAuthorizationCodeStateProperties;
-import tech.me.direct.debit.service.mandate.redirect.model.RedirectState;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.GCMParameterSpec;

@@ -7,7 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.me.direct.debit.config.properties.MandateAuthorizationCodeStateProperties;
-import tech.me.direct.debit.service.mandate.redirect.model.RedirectState;
+import tech.me.direct.debit.service.provider.mandate.impl.mellat.redirect.encryption.AESStateEncryptionService;
+import tech.me.direct.debit.service.provider.mandate.impl.mellat.redirect.encryption.RedirectState;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
