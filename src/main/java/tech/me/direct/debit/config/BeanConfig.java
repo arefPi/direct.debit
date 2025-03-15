@@ -1,4 +1,4 @@
-package tech.me.direct.debit.config.properties;
+package tech.me.direct.debit.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
