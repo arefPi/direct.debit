@@ -1,4 +1,4 @@
-package tech.me.direct.debit.service.provider.mandate.impl.mellat.redirect.encryption;
+package tech.me.direct.debit.util.encryption;
 
 public record RedirectState(
         String userId,

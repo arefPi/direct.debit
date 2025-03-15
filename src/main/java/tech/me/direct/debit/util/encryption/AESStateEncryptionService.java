@@ -1,4 +1,4 @@
-package tech.me.direct.debit.service.provider.mandate.impl.mellat.redirect.encryption;
+package tech.me.direct.debit.util.encryption;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
