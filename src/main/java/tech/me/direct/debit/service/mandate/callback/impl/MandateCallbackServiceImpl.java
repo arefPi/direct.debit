@@ -14,8 +14,8 @@ import tech.me.direct.debit.service.mandate.exception.MandateCallbackInternalExc
 import tech.me.direct.debit.util.encryption.AESStateEncryptionService;
 import tech.me.direct.debit.util.encryption.RedirectState;
 import tech.me.direct.debit.service.mandate.get.access.token.GetProviderAccessTokenService;
-import tech.me.direct.debit.service.mandate.get.access.token.GetProviderAccessTokenRequest;
-import tech.me.direct.debit.service.mandate.get.access.token.GetProviderAccessTokenResponse;
+import tech.me.direct.debit.service.mandate.get.access.token.model.GetProviderAccessTokenRequest;
+import tech.me.direct.debit.service.mandate.get.access.token.model.GetProviderAccessTokenResponse;
 import tech.me.direct.debit.persistence.mandate.Token;
 
 @Service
