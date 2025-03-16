@@ -64,7 +64,8 @@ public class MandateController {
         @ApiResponse(responseCode = "200", description = "Mandate completed successfully"),
         @ApiResponse(responseCode = "400", description = "Invalid request"),
         @ApiResponse(responseCode = "404", description = "Mandate not found or Provider not found"),
-        @ApiResponse(responseCode = "400", description = "Mandate not in expected status")
+        @ApiResponse(responseCode = "400", description = "Mandate not in expected status"),
+        @ApiResponse(responseCode = "409", description = "The mandate was modified by another operation")
     })
     @PostMapping("/complete")
     public ResponseEntity<Void> completeMandate(@RequestBody CompleteMandateRequest requestDto) {
@@ -83,7 +84,8 @@ public class MandateController {
         @ApiResponse(responseCode = "307", description = "Temporary redirect to provider"),
         @ApiResponse(responseCode = "404", description = "Mandate not found"),
         @ApiResponse(responseCode = "400", description = "Mandate not in expected status"),
-        @ApiResponse(responseCode = "500", description = "Provider service internal error or redirect service internal error")
+        @ApiResponse(responseCode = "500", description = "Provider service internal error or redirect service internal error"),
+        @ApiResponse(responseCode = "409", description = "The mandate was modified by another operation")
     })
     @PostMapping("/{mandateReferenceId}/redirect")
     public ResponseEntity<RedirectToProviderResponse> redirectToProvider(
@@ -105,7 +107,8 @@ public class MandateController {
         @ApiResponse(responseCode = "200", description = "Callback processed successfully"),
         @ApiResponse(responseCode = "400", description = "Invalid callback parameters or invalid state"),
         @ApiResponse(responseCode = "404", description = "Mandate not found"),
-        @ApiResponse(responseCode = "500", description = "Callback internal error or provider access token error")
+        @ApiResponse(responseCode = "500", description = "Callback internal error or provider access token error"),
+        @ApiResponse(responseCode = "409", description = "The mandate was modified by another operation")
     })
     @GetMapping("/callback")
     public ResponseEntity<Void> handleCallback(

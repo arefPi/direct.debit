@@ -23,6 +23,10 @@ public class Mandate extends tech.me.direct.debit.persistence.Entity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Version
+    @Column(name = "version", nullable = false)
+    private Long version;
+
     @Column(name = "reference_id", nullable = false)
     private String referenceId;
 

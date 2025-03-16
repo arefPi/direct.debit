@@ -1,5 +1,6 @@
 package tech.me.direct.debit.controller.mandate.exception.handler;
 
+import jakarta.persistence.OptimisticLockException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -58,6 +59,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
         return createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR,
                 "An unexpected error occurred", ex.getMessage());
+    }
+
+    @ExceptionHandler(OptimisticLockException.class)
+    public ResponseEntity<ErrorResponse> handleOptimisticLockException(OptimisticLockException ex) {
+        return createErrorResponse(
+            HttpStatus.CONFLICT,
+            "The resource has been modified by another transaction. Please try again.",
+            ex.getMessage()
+        );
     }
 
     private ResponseEntity<ErrorResponse> createErrorResponse(HttpStatus status,
