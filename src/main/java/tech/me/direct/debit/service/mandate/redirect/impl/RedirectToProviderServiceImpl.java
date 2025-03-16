@@ -27,7 +27,7 @@ public class RedirectToProviderServiceImpl implements RedirectToProviderService 
     private final MandateMapper mandateMapper;
 
     @Override
-    public final RedirectToProviderResponse redirect(RedirectToProviderRequest request) {
+    public RedirectToProviderResponse redirect(RedirectToProviderRequest request) {
         final var mandateReferenceId = request.mandateReferenceId();
 
         final var mandate = getMandate(mandateReferenceId);
