@@ -27,7 +27,10 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize ->
-                        authorize.requestMatchers("/api/v1/mandates/callback").permitAll()
+                        authorize.requestMatchers("/api/v1/mandates/callback",
+                                        "/swagger-ui.html",
+                                        "/swagger-ui/**",
+                                        "/api-docs/**").permitAll()
                                 .anyRequest().authenticated())
                 .exceptionHandling(exceptions ->
                         exceptions.authenticationEntryPoint((request, response, authException) -> {
