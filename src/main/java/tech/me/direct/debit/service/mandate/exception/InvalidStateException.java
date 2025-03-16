@@ -8,7 +8,7 @@ public class InvalidStateException extends RuntimeException {
     private final String mandateReferenceId;
 
     public InvalidStateException(String mandateReferenceId) {
-        super(mandateReferenceId);
-        this.mandateReferenceId = INVALID_STATE_EXCEPTION;
+        super(INVALID_STATE_EXCEPTION);
+        this.mandateReferenceId = mandateReferenceId;
     }
 } 
