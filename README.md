@@ -102,22 +102,19 @@ sequenceDiagram
 
     Note over DD: Background Processes
     par Stale Mandate Check
-        Note over DD: Not implemented yet 
-        Timeout Check
-            DD->>DD: Check for stale mandates
-            alt Mandate inactive > 30 sec
+        Note over DD: Periodic Check
+        DD->>DD: Check for stale mandates
+        alt Mandate is stale
             Note over DD: Status Update (FAILED)
             DD->>DD: Update status to FAILED
         end
     and Future: Expiration Check
         Note over DD: Not implemented yet
-        loop Periodic Check
-            Note over DD: Expiration Check
-            DD->>DD: Check mandate expiration
-            alt Mandate expired
-                Note over DD: Status Update (EXPIRED)
-                DD->>DD: Update status to EXPIRED
-            end
+        Note over DD: Periodic Check
+        DD->>DD: Check mandate expiration
+        alt Mandate expired
+            Note over DD: Status Update (EXPIRED)
+            DD->>DD: Update status to EXPIRED
         end
     end
 ```
